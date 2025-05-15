@@ -1,151 +1,100 @@
 from django.shortcuts import render
-from django.http import HttpResponse,JsonResponse
-import json
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .newPythonCodeOfAlgorithm import randomforest
-from .diagnosis import diag
+import json
+from datetime import datetime
+import traceback
 
-# import joblib
-# import numpy as np
-# import pandas as pd
-# from scipy.stats import mode
-# from sklearn.preprocessing import LabelEncoder
-# from sklearn.model_selection import train_test_split, cross_val_score
-# from sklearn.svm import SVC
-# from sklearn.naive_bayes import GaussianNB
-# from sklearn.ensemble import RandomForestClassifier
-# from sklearn.metrics import accuracy_score, confusion_matrix
+from .models import Cita
+from .chatgpt import consulta_chatgpt
 
-# DATA_PATH = "getsymptoms/dataset/Training.csv"
-# data = pd.read_csv(DATA_PATH).dropna(axis = 1)
-
-# X = data.iloc[:,:-1]
-
-
-# symptoms = X.columns.values
-
-# # load the models
-# final_rf_model = joblib.load("final_rf_model.joblib")
-# final_nb_model = joblib.load("final_nb_model.joblib")
-# final_svm_model = joblib.load("final_svm_model.joblib")
-
-# encoder = LabelEncoder()
-# data["prognosis"] = encoder.fit_transform(data["prognosis"])
-
-# # load the data_dict
-# # data_dict = joblib.load("data_dict.joblib")
-# # Creating a symptom index dictionary to encode the
-# # input symptoms into numerical form
-# symptom_index = {}
-# for index, value in enumerate(symptoms):
-# 	symptom = " ".join([i.capitalize() for i in value.split("_")])
-# 	symptom_index[symptom] = index
-
-# data_dict = {
-# 	"symptom_index":symptom_index,
-# 	"predictions_classes":encoder.classes_
-# }
-
-# # Defining the Function
-# # Input: string containing symptoms separated by commas
-# # Output: Generated predictions by models
-# def predictDisease(symptoms):
-# 	symptoms = symptoms.split(",")
-	
-# 	# creating input data for the models
-# 	input_data = [0] * len(data_dict["symptom_index"])
-# 	for symptom in symptoms:
-# 		index = data_dict["symptom_index"][symptom]
-# 		input_data[index] = 1
-		
-# 	# reshaping the input data and converting it
-# 	# into suitable format for model predictions
-# 	input_data = np.array(input_data).reshape(1,-1)
-	
-# 	# generating individual outputs
-# 	rf_prediction = data_dict["predictions_classes"][final_rf_model.predict(input_data)[0]]
-# 	nb_prediction = data_dict["predictions_classes"][final_nb_model.predict(input_data)[0]]
-# 	svm_prediction = data_dict["predictions_classes"][final_svm_model.predict(input_data)[0]]
-	
-# 	# making final prediction by taking mode of all predictions
-# 	final_prediction = mode([rf_prediction, nb_prediction, svm_prediction])[0][0]
-# 	predictions = {
-# 		"rf_model_prediction": rf_prediction,
-# 		"naive_bayes_prediction": nb_prediction,
-# 		"svm_model_prediction": svm_prediction,
-# 		"final_prediction":final_prediction
-# 	}
-# 	return predictions
-
-# Testing the function
-# print(predictDisease("Itching,Muscle Wasting"))
-
+def index(request):
+    """
+    Vista para renderizar la página principal del chatbot.
+    """
+    return render(request, 'getsymptoms/index.html')
 
 @csrf_exempt
-def getsymptoms(req):
-    if req.method=='POST':
-        print(req)
-        received_json_data=json.loads(req.body)
-        print(received_json_data)
-        feeling  =  received_json_data['queryResult']['parameters']['feeling']
-        symptoms =  received_json_data['queryResult']['parameters']['symptoms']
-        print(symptoms)
-        res = ''
-        if len(symptoms) == 1:
-            res = randomforest(symptoms[0])
-        elif len(symptoms) == 2:
-            res = randomforest(symptoms[0], symptoms[1])
-        elif len(symptoms) == 3:
-            res = randomforest(symptoms[0], symptoms[1], symptoms[2])
-        elif len(symptoms) == 4:
-            res = randomforest(symptoms[0], symptoms[1], symptoms[2], symptoms[3])
-        elif len(symptoms) == 5:
-            res = randomforest(symptoms[0], symptoms[1], symptoms[2], symptoms[3], symptoms[4])
-        print(res)
-        # for symptom in symptoms:
-        #     if '_' in symptom:
-        #         symptom = " ".join([i for i in symptom.split("_")])
-        #         print(symptom)
-        #     else:
-        #         l.append(" ".join([i for i in symptom.split()]))
-        # res = ','.join(l)
-        # print(res)
-        # disease = predictDisease(res)
- 
-        return JsonResponse(
-           {
-  "fulfillmentMessages": [
-    {
-      "text": {
-        "text": [
-          f"Hi, You may be suffering with {res}."
-        ]
-      }
-    },
-    {
-      "text": {
-        "text": [
-          f'''You are advised to take these steps: \n
-          {diag(res)}
-          ''' 
-        ]
-      }
-    },
-    {
-      "text": {
-        "text": [
-          "Your health and well-being are important to me. If you're experiencing serious issues or pain, I highly recommend seeking medical attention from a doctor or hospital."
-        ]
-      }
-    }
-  ]
-}
-  
-                       )
-    # print('disease is',randomforest('headache','neck_pain','back_pain'))
-    return render(req, 'getsymptoms/index.html')
-        # "You may be suffering with "+ disease + "You are adviced to take these medicines :"
-        # +
-        # medicines.lilst
-        # +
-        # "And Consult doctor after "+ these.days + "If still you feel same symptoms"
+def webhook(request):
+    """
+    Endpoint de fulfillment para Dialogflow.
+    - Si el usuario indica fecha y hora, guarda la cita y confirma con un cierre profesional.
+    - En cualquier otro caso, ChatGPT se encarga de precalificar el lead y guiar la conversación.
+    """
+    if request.method != 'POST':
+        return JsonResponse({'fulfillmentText': 'Método no permitido.'}, status=405)
+
+    try:
+        data = json.loads(request.body)
+        qr = data.get('queryResult', {})
+        params = qr.get('parameters', {})
+        user_text = qr.get('queryText', '')
+    except json.JSONDecodeError:
+        return JsonResponse({'fulfillmentText': 'Error al procesar la solicitud.'}, status=400)
+
+    # Intent de agendar cita: cuando detectamos fecha y hora en los parámetros
+    fecha = params.get('fecha')
+    hora  = params.get('Hora') or params.get('hora')
+    if fecha and hora:
+        especialidad = params.get('especialidad') or params.get('location', {}).get('business-name', '')
+        contacto     = params.get('contacto', '')
+
+        # Parseo estricto de fecha y hora con formatos conocidos
+        try:
+            fecha_obj = datetime.strptime(fecha, "%Y-%m-%d").date() if isinstance(fecha, str) else fecha
+        except Exception:
+            fecha_obj = None
+        try:
+            hora_obj  = datetime.strptime(hora, "%H:%M").time() if isinstance(hora, str) else hora
+        except Exception:
+            hora_obj = None
+
+        if fecha_obj and hora_obj:
+            # Guardar cita en la base de datos
+            Cita.objects.create(
+                fecha=fecha_obj,
+                hora=hora_obj,
+                especialidad=especialidad,
+                contacto=contacto
+            )
+            # Confirmación profesional con ChatGPT
+            system_prompt = (
+                "Eres un asistente médico profesional y amable. "
+                "Confirma la cita con un cierre humano y profesional."
+            )
+            prompt = (
+                f"Tu cita en {especialidad} ha sido agendada para el {fecha_obj.strftime('%d/%m/%Y')} "
+                f"a las {hora_obj.strftime('%H:%M')}. Te contactaremos al {contacto}. "
+                "¡Gracias por confiar en nosotros! ¿Hay algo más en lo que pueda ayudarte hoy?"
+            )
+            try:
+                respuesta = consulta_chatgpt(
+                    prompt=prompt,
+                    contexto=[{'role': 'system', 'content': system_prompt}]
+                )
+            except Exception as e:
+                traceback.print_exc()
+                return JsonResponse({'fulfillmentText': f"Error con OpenAI: {e}"}, status=500)
+        else:
+            respuesta = (
+                "Lo siento, no pude interpretar la fecha u hora que proporcionaste. "
+                "Por favor indícame nuevamente cuándo te gustaría agendar tu cita."
+            )
+        return JsonResponse({'fulfillmentText': respuesta})
+
+    # Fallback: toda otra interacción la maneja ChatGPT para precalificar el lead
+    system_prompt = (
+        "Eres un asistente de salud muy humano y conversacional. "
+        "Tu tarea es precalificar al cliente: averiguar sus necesidades, objetivos y presupuesto, "
+        "y cuando esté listo, guiarlo a indicar fecha y hora para agendar. Mantén un tono profesional y empático."
+    )
+    try:
+        respuesta = consulta_chatgpt(
+            prompt=user_text,
+            contexto=[{'role': 'system', 'content': system_prompt}]
+        )
+    except Exception as e:
+        traceback.print_exc()
+        return JsonResponse({'fulfillmentText': f"Error con OpenAI: {e}"}, status=500)
+
+    return JsonResponse({'fulfillmentText': respuesta})

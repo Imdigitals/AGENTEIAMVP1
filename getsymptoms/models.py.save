@@ -1,5 +1,8 @@
 from django.db import models
 
+# Create your models here.
+from django.db import models
+
 class Cita(models.Model):
     fecha = models.DateField()
     hora = models.TimeField()
@@ -9,3 +12,5 @@ class Cita(models.Model):
 
     def __str__(self):
         return f"Cita en {self.especialidad} para {self.fecha} a las {self.hora}"
+
+

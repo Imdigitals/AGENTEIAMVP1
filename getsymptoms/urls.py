@@ -1,9 +1,7 @@
-
-from django.contrib import admin
-from django.urls import path,include
+from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('',views.getsymptoms),
-    path('getsymptoms',views.getsymptoms, name='getsymptoms')
+    path('',       views.index,   name='index'),
+    path('webhook/', views.webhook, name='dialogflow_webhook'),
 ]

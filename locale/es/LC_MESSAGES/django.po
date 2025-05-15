@@ -1,0 +1,282 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-12 01:01+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+#: healthcarechatbot/settings.py:131
+msgid "Español"
+msgstr "Español"
+
+#: healthcarechatbot/settings.py:132
+msgid "English"
+msgstr "Inglés"
+
+#: templates/getsymptoms/index.html:6 templates/getsymptoms/index.html:367
+msgid "HealthCareChatBot"
+msgstr "HealthCareChatBot"
+
+#: templates/getsymptoms/index.html:59
+msgid "ealthcareChatBot"
+msgstr "ealthcareChatBot"
+
+#: templates/getsymptoms/index.html:65 templates/getsymptoms/index.html:375
+msgid "Home"
+msgstr "Inicio"
+
+#: templates/getsymptoms/index.html:66 templates/getsymptoms/index.html:376
+msgid "Chatbot"
+msgstr "Chatbot"
+
+#: templates/getsymptoms/index.html:67 templates/getsymptoms/index.html:377
+msgid "Features"
+msgstr "Características"
+
+#: templates/getsymptoms/index.html:68 templates/getsymptoms/index.html:177
+#: templates/getsymptoms/index.html:378
+msgid "Technologies Used"
+msgstr "Tecnologías Utilizadas"
+
+#: templates/getsymptoms/index.html:69 templates/getsymptoms/index.html:379
+msgid "Team"
+msgstr "Equipo"
+
+#: templates/getsymptoms/index.html:70 templates/getsymptoms/index.html:303
+#: templates/getsymptoms/index.html:380
+msgid "Contact"
+msgstr "Contacto"
+
+#: templates/getsymptoms/index.html:81
+msgid "Welcome to HealthCareChatBot"
+msgstr "Bienvenido a HealthCareChatBot"
+
+#: templates/getsymptoms/index.html:82
+msgid "Disease prediction from Symptoms and medical advicing and &amp; more... :)"
+msgstr "Predicción de enfermedades a partir de síntomas y asesoramiento médico y mucho más... :)"
+
+#: templates/getsymptoms/index.html:83
+msgid "Hero Imgs"
+msgstr "Imagen del héroe"
+
+#: templates/getsymptoms/index.html:84
+msgid "Get Started"
+msgstr "Comenzar"
+
+#: templates/getsymptoms/index.html:86
+msgid "Telegram"
+msgstr "Telegram"
+
+#: templates/getsymptoms/index.html:87
+msgid "Google Assistant"
+msgstr "Google Assistant"
+
+#: templates/getsymptoms/index.html:87
+msgid "Coming Soon"
+msgstr "Próximamente"
+
+#: templates/getsymptoms/index.html:98
+msgid "Say Hello to Kitty! Your Healthcare chatbot"
+msgstr "¡Di hola a Kitty! Tu chatbot de salud"
+
+#: templates/getsymptoms/index.html:99
+msgid "A project for solving for india hackathon"
+msgstr "Un proyecto para el hackathon Solving for India"
+
+#: templates/getsymptoms/index.html:131
+msgid "Amazing Features."
+msgstr "Características asombrosas."
+
+#: templates/getsymptoms/index.html:132
+msgid "Major features of this project"
+msgstr "Principales características de este proyecto"
+
+#: templates/getsymptoms/index.html:140 templates/getsymptoms/index.html:148
+#: templates/getsymptoms/index.html:156 templates/getsymptoms/index.html:164
+#: templates/getsymptoms/index.html:186 templates/getsymptoms/index.html:194
+#: templates/getsymptoms/index.html:202 templates/getsymptoms/index.html:210
+#: templates/getsymptoms/index.html:235 templates/getsymptoms/index.html:250
+#: templates/getsymptoms/index.html:265 templates/getsymptoms/index.html:280
+msgid "img"
+msgstr "imagen"
+
+#: templates/getsymptoms/index.html:141
+msgid "easy to use"
+msgstr "fácil de usar"
+
+#: templates/getsymptoms/index.html:142
+msgid "This chatbot is very easy to use and simple to start a conversation"
+msgstr "Este chatbot es muy fácil de usar y sencillo para iniciar una conversación"
+
+#: templates/getsymptoms/index.html:149
+msgid "Trained ML Model"
+msgstr "Modelo de ML entrenado"
+
+#: templates/getsymptoms/index.html:150
+msgid "This is an AI Model which learns from the user's input and upgrades day by day"
+msgstr "Este es un modelo de IA que aprende de la entrada del usuario y mejora día a día"
+
+#: templates/getsymptoms/index.html:157
+msgid "Symptom-Disease Prediction"
+msgstr "Predicción de enfermedad a partir de síntomas"
+
+#: templates/getsymptoms/index.html:158
+msgid "This chatbot predicts the disease based on the user's Symptoms."
+msgstr "Este chatbot predice la enfermedad basándose en los síntomas del usuario"
+
+#: templates/getsymptoms/index.html:165
+msgid "Disease prevention and medication"
+msgstr "Prevención de enfermedades y medicación"
+
+#: templates/getsymptoms/index.html:166
+msgid "Precautions are provided to prevent the disease and provide respective medication steps."
+msgstr "Se ofrecen precauciones para prevenir la enfermedad y se indican los pasos de medicación correspondientes."
+
+#: templates/getsymptoms/index.html:178
+msgid "These were the technologies used to build this project"
+msgstr "Estas son las tecnologías utilizadas para construir este proyecto"
+
+#: templates/getsymptoms/index.html:187
+msgid "DialogFlow"
+msgstr "DialogFlow"
+
+#: templates/getsymptoms/index.html:188
+msgid "The conversation flow is built using the dialogflow"
+msgstr "El flujo de conversación está construido utilizando DialogFlow"
+
+#: templates/getsymptoms/index.html:195
+msgid "Django"
+msgstr "Django"
+
+#: templates/getsymptoms/index.html:196
+msgid "The project website is made using the Django (python) Framework"
+msgstr "El sitio web del proyecto está creado usando el framework Django (Python)"
+
+#: templates/getsymptoms/index.html:203
+msgid "Deep Learning"
+msgstr "Deep Learning"
+
+#: templates/getsymptoms/index.html:204
+msgid "This chatbot uses Deep Learning to predict the disease based on the user's Symptoms and provides precautions and medication steps."
+msgstr "Este chatbot utiliza Deep Learning para predecir la enfermedad basándose en los síntomas del usuario y ofrece precauciones y pasos de medicación."
+
+#: templates/getsymptoms/index.html:211
+msgid "Cloud services"
+msgstr "Servicios en la nube"
+
+#: templates/getsymptoms/index.html:212
+msgid "This chatbot is deployed on Google Cloud Platform and AMD instances were launched."
+msgstr "Este chatbot se ha desplegado en Google Cloud Platform y se han lanzado instancias AMD."
+
+#: templates/getsymptoms/index.html:226
+msgid "Team Members"
+msgstr "Miembros del equipo"
+
+#: templates/getsymptoms/index.html:227
+msgid "Team members for the hackathon"
+msgstr "Miembros del equipo para el hackathon"
+
+#: templates/getsymptoms/index.html:242 templates/getsymptoms/index.html:287
+msgid "Developer"
+msgstr "Desarrollador"
+
+#: templates/getsymptoms/index.html:243
+msgid "B.Udaysantoshkumar"
+msgstr "B.Udaysantoshkumar"
+
+#: templates/getsymptoms/index.html:257
+msgid "ML Model Trainer"
+msgstr "Entrenador de modelo ML"
+
+#: templates/getsymptoms/index.html:258
+msgid "Dhanunjaya rao"
+msgstr "Dhanunjaya rao"
+
+#: templates/getsymptoms/index.html:272
+msgid "Machine Learning Expert"
+msgstr "Experto en Machine Learning"
+
+#: templates/getsymptoms/index.html:273
+msgid "Pradeep Behara"
+msgstr "Pradeep Behara"
+
+#: templates/getsymptoms/index.html:288
+msgid "Hemanth Kumar"
+msgstr "Hemanth Kumar"
+
+#: templates/getsymptoms/index.html:304
+msgid "Regarding projects"
+msgstr "Acerca de los proyectos"
+
+#: templates/getsymptoms/index.html:313
+msgid "Lendi Institute Of Engineering and Technology"
+msgstr "Lendi Institute Of Engineering and Technology"
+
+#: templates/getsymptoms/index.html:313
+msgid "Jonnada, VZM 535002"
+msgstr "Jonnada, VZM 535002"
+
+#: templates/getsymptoms/index.html:332
+msgid "Your message has been sent. Thank you!"
+msgstr "¡Tu mensaje ha sido enviado. Gracias!"
+
+#: templates/getsymptoms/index.html:336
+msgid "Your Name"
+msgstr "Tu nombre"
+
+#: templates/getsymptoms/index.html:336
+msgid "Please enter at least 4 chars"
+msgstr "Por favor, ingresa al menos 4 caracteres"
+
+#: templates/getsymptoms/index.html:340
+msgid "Your Email"
+msgstr "Tu correo electrónico"
+
+#: templates/getsymptoms/index.html:340
+msgid "Please enter a valid email"
+msgstr "Por favor, ingresa un correo electrónico válido"
+
+#: templates/getsymptoms/index.html:344
+msgid "Subject"
+msgstr "Asunto"
+
+#: templates/getsymptoms/index.html:344
+msgid "Please enter at least 8 chars of subject"
+msgstr "Por favor, ingresa al menos 8 caracteres para el asunto"
+
+#: templates/getsymptoms/index.html:348
+msgid "Please write something for us"
+msgstr "Por favor, escribe algo para nosotros"
+
+#: templates/getsymptoms/index.html:348
+msgid "Message"
+msgstr "Mensaje"
+
+#: templates/getsymptoms/index.html:351
+msgid "Send Message"
+msgstr "Enviar mensaje"
+
+#: templates/getsymptoms/index.html:368
+msgid "This chatbot uses Deep Learning to predict the disease based on the user's Symptoms and provides respective medication steps."
+msgstr "Este chatbot utiliza Deep Learning para predecir la enfermedad basándose en los síntomas del usuario y ofrece los pasos de medicación correspondientes."
+
+#: templates/getsymptoms/index.html:373
+msgid "Modules"
+msgstr "Módulos"
+
+#: templates/getsymptoms/index.html:388
+msgid "Copyrights HealthCareChatBot. All rights reserved."
+msgstr "Derechos de autor HealthCareChatBot. Todos los derechos reservados."
